@@ -4,7 +4,7 @@ import java.util.List;
 import java.io.*;
 import java.time.*;
 public class Ledger {
-    private final List <Transactions> transactionslist = new ArrayList<>();
+    private final List<Transactions> transactionslist = new ArrayList<>();
 
     public void addDeposit(String description, String vendor, double amount) {
         // Step 1: automatically get current date and time
@@ -33,7 +33,7 @@ public class Ledger {
         }
     }
 
-    public void makePayment(String description, String vendor, double amount){
+    public void makePayment(String description, String vendor, double amount) {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
 
@@ -54,15 +54,43 @@ public class Ledger {
         }
     }
 
-    public void displayAll(){
-        if(this.transactionslist.isEmpty()){
+    public void displayAll() {
+        if (this.transactionslist.isEmpty()) {
             System.out.println("Sorry, your transaction list is empty");
-        } else{
+        } else {
             System.out.println("Transaction List: ");
-            for(Transactions t: this.transactionslist){
+            for (Transactions t : this.transactionslist) {
                 System.out.println(t);
             }
         }
     }
+
+    public void displayDeposits() {
+        if (this.transactionslist.isEmpty()) {
+            System.out.println("Sorry, your transaction list is empty");
+        } else {
+            System.out.println("Deposit List: ");
+            for (Transactions t : this.transactionslist) {
+                if (t.getAmount() > 0) {
+                    System.out.println(t);
+
+                }
+            }
+        }
+    }
+
+    public void displayPayments() {
+        if (this.transactionslist.isEmpty()) {
+            System.out.println("Sorry, your transaction list is empty");
+        } else {
+            System.out.println("Payment List: ");
+            for (Transactions t : this.transactionslist) {
+                if (t.getAmount() < 0) {
+                    System.out.println(t);
+                }
+            }
+        }
+    }
+
 }
 

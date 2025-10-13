@@ -4,9 +4,12 @@ import java.util.Scanner;
 
 public class Menu {
     public static void showMenu(){
+
+
         Scanner scanner = new Scanner(System.in);
         Ledger Ledger = new Ledger();
         boolean running = true;
+
 
         while(running){
             System.out.println("Welcome to the Accounting Ledger Application");
@@ -18,6 +21,8 @@ public class Menu {
             String inputLine = scanner.nextLine();
             String UpperCase = inputLine.toUpperCase();
             char choice = UpperCase.charAt(0);//grabbing the first char only
+
+
             switch (choice) {
                 case 'D':
                     System.out.print("Please enter your Deposit amount: ");
@@ -32,19 +37,21 @@ public class Menu {
 
                     Ledger.addDeposit(DepositDescription, DepositVendor, Depositamount);
                     break;
+
                 case 'P':
-                    System.out.print("Please enter your Deposit amount: ");
-                    double Payamount = scanner.nextDouble();
+                    System.out.print("Please enter your Payment amount: ");
+                    double PayAmount = scanner.nextDouble();
                     scanner.nextLine();
 
-                    System.out.print("Please enter the deposit description");
+                    System.out.print("Please enter the Payment description");
                     String PayDescription = scanner.nextLine();
 
-                    System.out.println("Please enter the deposit vendor");
+                    System.out.println("Please enter the Payment vendor");
                     String PayVendor = scanner.nextLine();
 
-                    Ledger.addDeposit(PayDescription, PayVendor, Payamount);
+                    Ledger.makePayment(PayDescription, PayVendor, PayAmount);
                     break;
+
                 case 'L':
                     System.out.println("Ledger: ");
                     System.out.println("A) All transaction history");
@@ -59,16 +66,18 @@ public class Menu {
                         case 'A':
                             Ledger.displayAll();
                             break;
+
                         case 'D':
-                            System.out.println("Deposits");
+                            Ledger.displayDeposits();
                             break;
+
                         case 'P':
-                            System.out.println("Payments");
+                            Ledger.displayPayments();
                             break;
+
                         case 'R':
                             System.out.println("Reports Screen");
                     }
-
                     break;
                 case 'X':
                     System.out.println("Exit");
