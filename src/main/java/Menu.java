@@ -3,7 +3,7 @@
 import java.util.Scanner;
 
 public class Menu {
-    public static void showMenu(){
+    public static void showMenu() {
 
 
         Scanner scanner = new Scanner(System.in);
@@ -11,7 +11,7 @@ public class Menu {
         boolean running = true;
 
 
-        while(running){
+        while (running) {
             System.out.println("Welcome to the Accounting Ledger Application");
             System.out.println("D) Add Deposit");
             System.out.println("P) Make Payment (Debit)");
@@ -29,10 +29,10 @@ public class Menu {
                     double Depositamount = scanner.nextDouble();
                     scanner.nextLine();
 
-                    System.out.print("Please enter the deposit description");
+                    System.out.print("Please enter the deposit description: ");
                     String DepositDescription = scanner.nextLine();
 
-                    System.out.println("Please enter the deposit vendor");
+                    System.out.println("Please enter the deposit vendor: ");
                     String DepositVendor = scanner.nextLine();
 
                     Ledger.addDeposit(DepositDescription, DepositVendor, Depositamount);
@@ -43,48 +43,98 @@ public class Menu {
                     double PayAmount = scanner.nextDouble();
                     scanner.nextLine();
 
-                    System.out.print("Please enter the Payment description");
+                    System.out.print("Please enter the Payment description: ");
                     String PayDescription = scanner.nextLine();
 
-                    System.out.println("Please enter the Payment vendor");
+                    System.out.println("Please enter the Payment vendor: ");
                     String PayVendor = scanner.nextLine();
 
                     Ledger.makePayment(PayDescription, PayVendor, PayAmount);
                     break;
 
                 case 'L':
-                    System.out.println("Ledger: ");
-                    System.out.println("A) All transaction history");
-                    System.out.println("D) Deposits into Account");
-                    System.out.println("P) Payments out of Account");
-                    System.out.println("R) Reports Screen");
-                    String LedgerInput = scanner.nextLine();
-                    String LedgerUpperCase = LedgerInput.toUpperCase();
-                    char LedgerChoice = LedgerUpperCase.charAt(0);
+                    boolean LedgerRunning = true;
+                    while (LedgerRunning) {
+                        System.out.println("Ledger: ");
+                        System.out.println("A) All transaction history");
+                        System.out.println("D) Deposits into Account");
+                        System.out.println("P) Payments out of Account");
+                        System.out.println("R) Reports Screen");
+                        System.out.println("H) Go back to Home Page");
+                        System.out.println("Please choose one of the options above: ");
+                        String LedgerInput = scanner.nextLine();
+                        String LedgerUpperCase = LedgerInput.toUpperCase();
+                        char LedgerChoice = LedgerUpperCase.charAt(0);
 
-                    switch (LedgerChoice){
-                        case 'A':
-                            Ledger.displayAll();
-                            break;
+                        switch (LedgerChoice) {
+                            case 'A':
+                                Ledger.displayAll();
+                                break;
 
-                        case 'D':
-                            Ledger.displayDeposits();
-                            break;
+                            case 'D':
+                                Ledger.displayDeposits();
+                                break;
 
-                        case 'P':
-                            Ledger.displayPayments();
-                            break;
+                            case 'P':
+                                Ledger.displayPayments();
+                                break;
 
-                        case 'R':
-                            System.out.println("Reports Screen");
+                            case 'R':
+                                boolean ReportsChoiceRunning = true;
+                                while(ReportsChoiceRunning){
+
+                                System.out.println("Reports Screen");
+                                System.out.println("1) Month to Date: ");
+                                System.out.println("2) Previous Month");
+                                System.out.println("3) Year to Date");
+                                System.out.println("4) Previous Year");
+                                System.out.println("5) Search by Vendor");
+                                System.out.println("0) Go back to ledger page");
+                                System.out.println("Please choose on the options above: ");
+
+                                int ReportsChoice = scanner.nextInt();
+                                scanner.nextLine();
+
+                                switch (ReportsChoice) {
+                                    case 1:
+                                        System.out.println("Month to date");
+                                        Ledger.MonthToDate();
+                                        break;
+                                    case 2:
+                                        System.out.println("Previous month");
+                                        break;
+                                    case 3:
+                                        System.out.println("Year to Date");
+                                        break;
+                                    case 4:
+                                        System.out.println("Previous year");
+                                        break;
+                                    case 5:
+                                        System.out.println("Please enter vendor name: ");
+                                        break;
+                                    case 0:
+                                        System.out.println("Back to ledger page");
+                                        ReportsChoiceRunning = false;
+                                        break;
+
+                                    default:
+                                        System.out.println("Invalid choice, try again");
+                                    }
+                                }
+                                break;
+                            case 'H':
+                                System.out.println("Back to home page");
+                                LedgerRunning = false;
+                                break;
+                        }
                     }
-                    break;
-                case 'X':
-                    System.out.println("Exit");
-                    running = false;
-                    break;
-                default:
-                    System.out.println("⚠️ Invalid choice, try again");
+                        break;
+                        case 'X':
+                            System.out.println("Exit");
+                            running = false;
+                            break;
+                        default:
+                            System.out.println("Invalid choice, try again");
             }
         }
     }

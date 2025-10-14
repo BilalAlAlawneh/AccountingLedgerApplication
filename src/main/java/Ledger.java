@@ -1,4 +1,5 @@
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
@@ -7,50 +8,50 @@ public class Ledger {
     private final List<Transactions> transactionslist = new ArrayList<>();
 
     public void addDeposit(String description, String vendor, double amount) {
-        // Step 1: automatically get current date and time
+
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = time.format(formatter);
 
-        // Step 2: make sure amount is positive (deposits are positive)
         if (amount <= 0) {
-            System.out.println("⚠️ Deposit amount must be positive.");
+            System.out.println("Deposit amount must be positive.");
             return;
         }
 
-        // Step 3: create a new transaction
-        Transactions newDeposit = new Transactions(amount, date, time, description, vendor);
+        Transactions newDeposit = new Transactions(amount, date, formattedTime, description, vendor);
 
-        // Step 4: add to your list
         transactionslist.add(newDeposit);
 
-        // Step 5: save to CSV file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true))) {
             writer.write(newDeposit.toString());
             writer.newLine(); // move to the next line
-            System.out.println("✅ Deposit added successfully!");
+            System.out.println("Deposit added successfully!");
         } catch (IOException e) {
-            System.out.println("❌ Error writing to file: " + e.getMessage());
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 
     public void makePayment(String description, String vendor, double amount) {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formattedTime = time.format(formatter);
 
         if (amount >= 0) {
-            System.out.println("⚠️ Payment amount must be negative.");
+            System.out.println("Payment amount must be negative.");
             return;
         }
 
-        Transactions newPayment = new Transactions(amount, date, time, description, vendor);
+        Transactions newPayment = new Transactions(amount, date, formattedTime, description, vendor);
         transactionslist.add(newPayment);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true))) {
             writer.write(newPayment.toString());
             writer.newLine(); // move to the next line
-            System.out.println("✅ Payment payed successfully!");
+            System.out.println("Payment payed successfully!");
         } catch (IOException e) {
-            System.out.println("❌ Error writing to file: " + e.getMessage());
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 
@@ -92,5 +93,16 @@ public class Ledger {
         }
     }
 
+    public void MonthToDate(){
+        LocalDate today = LocalDate.now();
+        LocalDate FirstofMonth = today.withDayOfMonth(1);
+
+        for(Transactions t: this.transactionslist){
+            LocalDate getDate = t.getDate();
+            if((getDate.isEqual(FirstofMonth) || getDate.isAfter(FirstofMonth) && getDate.isBefore(today.plusDays(1)))){
+                System.out.println(t);
+            }
+        }
+    }
 }
 

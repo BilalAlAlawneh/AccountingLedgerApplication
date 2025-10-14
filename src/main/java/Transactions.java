@@ -4,12 +4,12 @@ import java.time.*;
 public class Transactions {
     private double amount;
     private LocalDate Date;
-    private LocalTime Time;
+    private String Time;
     private String description;
     private String vendor;
 
 
-    public Transactions(double amount, LocalDate Date, LocalTime Time, String description, String vendor) {
+    public Transactions(double amount, LocalDate Date, String Time, String description, String vendor) {
         this.amount = amount;
         this.Date = Date;
         this.Time = Time;
@@ -29,11 +29,11 @@ public class Transactions {
         return Date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return Time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         Time = time;
     }
 
