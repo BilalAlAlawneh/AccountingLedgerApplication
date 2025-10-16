@@ -9,6 +9,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         Ledger Ledger = new Ledger();
         boolean running = true;
+        Ledger.loadTransactionsFromFile();
 
 
         while (running) {
@@ -102,6 +103,7 @@ public class Menu {
                                         break;
                                     case 2:
                                         System.out.println("Previous month");
+                                        Ledger.LastMonth();
                                         break;
                                     case 3:
                                         System.out.println("Year to Date");

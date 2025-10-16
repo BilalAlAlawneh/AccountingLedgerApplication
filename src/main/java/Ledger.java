@@ -1,11 +1,39 @@
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
 import java.time.*;
+import java.util.stream.Stream;
+
 public class Ledger {
+
     private final List<Transactions> transactionslist = new ArrayList<>();
+    private static final String FILE_PATH = "src/main/resources/transactions.csv";
+
+    public void loadTransactionsFromFile() {
+        try (Stream<String> lines = Files.lines(Paths.get(FILE_PATH))) {
+            lines
+                    .filter(line -> !line.trim().isEmpty())
+                    .map(line -> line.split("\\|"))
+                    .filter(parts -> parts.length == 5)
+                    .map(parts -> new Transactions(
+                            Double.parseDouble(parts[4].trim()),
+                            LocalDate.parse(parts[0].trim()),
+                            parts[1].trim(),
+                            parts[2].trim(),
+                            parts[3].trim()
+                    ))
+                    .forEach(transactionslist::add);
+
+            System.out.println("Loaded " + transactionslist.size() + " transactions from file.");
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+
 
     public void addDeposit(String description, String vendor, double amount) {
 
@@ -23,7 +51,7 @@ public class Ledger {
 
         transactionslist.add(newDeposit);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             writer.write(newDeposit.toString());
             writer.newLine(); // move to the next line
             System.out.println("Deposit added successfully!");
@@ -46,7 +74,7 @@ public class Ledger {
         Transactions newPayment = new Transactions(amount, date, formattedTime, description, vendor);
         transactionslist.add(newPayment);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             writer.write(newPayment.toString());
             writer.newLine(); // move to the next line
             System.out.println("Payment payed successfully!");
@@ -56,50 +84,45 @@ public class Ledger {
     }
 
     public void displayAll() {
-        if (this.transactionslist.isEmpty()) {
-            System.out.println("Sorry, your transaction list is empty");
+        if (transactionslist.isEmpty()) {
+            System.out.println("No transactions available.");
         } else {
-            System.out.println("Transaction List: ");
-            for (Transactions t : this.transactionslist) {
+            transactionslist.forEach(System.out::println);
+        }
+    }
+
+    public void displayDeposits() {
+        transactionslist.stream()
+                .filter(t -> t.getAmount() > 0)
+                .forEach(System.out::println);
+    }
+
+    public void displayPayments() {
+        transactionslist.stream()
+                .filter(t -> t.getAmount() < 0)
+                .forEach(System.out::println);
+    }
+
+    public void MonthToDate() {
+        LocalDate today = LocalDate.now();
+        LocalDate FirstofMonth = today.withDayOfMonth(1);
+
+        for (Transactions t : transactionslist) {
+            LocalDate getDate = t.getDate();
+            if ((getDate.isEqual(FirstofMonth) || getDate.isAfter(FirstofMonth) && getDate.isBefore(today.plusDays(1)))) {
                 System.out.println(t);
             }
         }
     }
 
-    public void displayDeposits() {
-        if (this.transactionslist.isEmpty()) {
-            System.out.println("Sorry, your transaction list is empty");
-        } else {
-            System.out.println("Deposit List: ");
-            for (Transactions t : this.transactionslist) {
-                if (t.getAmount() > 0) {
-                    System.out.println(t);
+    public void LastMonth() {
+        LocalDate LastMonth = LocalDate.now().minusMonths(1);
+        LocalDate FirstofLastmonth = LastMonth.withDayOfMonth(1);
+        LocalDate LastDay = LastMonth.withDayOfMonth(LastMonth.lengthOfMonth());
 
-                }
-            }
-        }
-    }
-
-    public void displayPayments() {
-        if (this.transactionslist.isEmpty()) {
-            System.out.println("Sorry, your transaction list is empty");
-        } else {
-            System.out.println("Payment List: ");
-            for (Transactions t : this.transactionslist) {
-                if (t.getAmount() < 0) {
-                    System.out.println(t);
-                }
-            }
-        }
-    }
-
-    public void MonthToDate(){
-        LocalDate today = LocalDate.now();
-        LocalDate FirstofMonth = today.withDayOfMonth(1);
-
-        for(Transactions t: this.transactionslist){
+        for (Transactions t : transactionslist) {
             LocalDate getDate = t.getDate();
-            if((getDate.isEqual(FirstofMonth) || getDate.isAfter(FirstofMonth) && getDate.isBefore(today.plusDays(1)))){
+            if ((getDate.isEqual(FirstofLastmonth) || getDate.isAfter(FirstofLastmonth) && getDate.isBefore(LastDay.plusDays(1)))) {
                 System.out.println(t);
             }
         }
