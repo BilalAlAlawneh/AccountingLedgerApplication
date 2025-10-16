@@ -90,6 +90,7 @@ public class Menu {
                                 System.out.println("3) Year to Date");
                                 System.out.println("4) Previous Year");
                                 System.out.println("5) Search by Vendor");
+                                    System.out.println("6) Custom Search");
                                 System.out.println("0) Go back to ledger page");
                                 System.out.printf("Please choose on the options above: ");
 
@@ -118,6 +119,9 @@ public class Menu {
                                         String vendor = scanner.nextLine();
 
                                         Ledger.SearchByVendor(vendor);
+                                        break;
+                                    case 6:
+                                        System.out.println("Custom Search");
                                         break;
                                     case 0:
                                         System.out.println("Back to ledger page");
