@@ -1,5 +1,8 @@
 //Menu Class
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Menu {
@@ -90,7 +93,7 @@ public class Menu {
                                 System.out.println("3) Year to Date");
                                 System.out.println("4) Previous Year");
                                 System.out.println("5) Search by Vendor");
-                                    System.out.println("6) Custom Search");
+                                System.out.println("6) Custom Search");
                                 System.out.println("0) Go back to ledger page");
                                 System.out.printf("Please choose on the options above: ");
 
@@ -121,7 +124,20 @@ public class Menu {
                                         Ledger.SearchByVendor(vendor);
                                         break;
                                     case 6:
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
                                         System.out.println("Custom Search");
+
+                                        System.out.printf("Please enter the start Date(YYYY-MM-DD) or press Enter to skip: ");
+                                        String StartDateChoice = scanner.nextLine();
+                                        System.out.printf("Please enter the end Date(YYYY-MM-DD) or press Enter to skip: ");
+                                        String EndDateChoice = scanner.nextLine();
+                                        System.out.printf("Please enter the description of transaction or press Enter to skip: ");
+                                        String descriptionChoice = scanner.nextLine();
+                                        System.out.println("Please enter the vendor of transaction or press Enter to skip: ");
+                                        String vendorChoice = scanner.nextLine();
+                                        System.out.printf("Please enter the amount of transaction or press Enter to skip: ");
+                                        double amountChoice = scanner.nextDouble();
+
                                         break;
                                     case 0:
                                         System.out.println("Back to ledger page");
