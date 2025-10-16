@@ -7,7 +7,6 @@ import java.util.List;
 import java.io.*;
 import java.time.*;
 import java.util.stream.Stream;
-import static java.util.Locale.filter;
 
 public class Ledger {
 
@@ -194,7 +193,6 @@ public class Ledger {
         } else {
             amnt = null;
         }
-
         transactionslist.stream()
                 .filter(t -> start == null || !t.getDate().isBefore(start))
                 .filter(t -> end == null || !t.getDate().isAfter(end))
