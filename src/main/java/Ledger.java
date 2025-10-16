@@ -122,10 +122,35 @@ public class Ledger {
 
         for (Transactions t : transactionslist) {
             LocalDate getDate = t.getDate();
-            if ((getDate.isEqual(FirstofLastmonth) || getDate.isAfter(FirstofLastmonth) && getDate.isBefore(LastDay.plusDays(1)))) {
+            if (((getDate.isEqual(FirstofLastmonth) || getDate.isAfter(FirstofLastmonth)) && getDate.isBefore(LastDay.plusDays(1)))) {
                 System.out.println(t);
             }
         }
     }
+
+    public void YearToDate(){
+        LocalDate today = LocalDate.now();
+        LocalDate FirstofYear = today.withDayOfYear(1);
+
+        for(Transactions t: transactionslist){
+            LocalDate getDate = t.getDate();
+            if((getDate.isEqual(FirstofYear) || getDate.isAfter(FirstofYear) && getDate.isBefore(today.plusDays(1)))){
+                System.out.println(t);
+            }
+        }
+    }
+    public void LastYear() {
+        LocalDate LastYear = LocalDate.now().minusYears(1);
+        LocalDate FirstofLastYear = LastYear.withDayOfYear(1);
+        LocalDate LastDay = LastYear.withDayOfYear(LastYear.lengthOfYear());
+
+        for (Transactions t : transactionslist) {
+            LocalDate getDate = t.getDate();
+            if (((getDate.isEqual(FirstofLastYear) || getDate.isAfter(FirstofLastYear)) && getDate.isBefore(LastDay.plusDays(1)))) {
+                System.out.println(t);
+            }
+        }
+    }
+
 }
 

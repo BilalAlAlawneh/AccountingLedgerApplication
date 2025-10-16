@@ -107,9 +107,11 @@ public class Menu {
                                         break;
                                     case 3:
                                         System.out.println("Year to Date");
+                                        Ledger.YearToDate();
                                         break;
                                     case 4:
                                         System.out.println("Previous year");
+                                        Ledger.LastYear();
                                         break;
                                     case 5:
                                         System.out.println("Please enter vendor name: ");
