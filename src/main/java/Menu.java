@@ -26,14 +26,14 @@ public class Menu {
 
             switch (choice) {
                 case 'D':
-                    System.out.print("Please enter your Deposit amount: ");
+                    System.out.printf("Please enter your Deposit amount: ");
                     double Depositamount = scanner.nextDouble();
                     scanner.nextLine();
 
-                    System.out.print("Please enter the deposit description: ");
+                    System.out.printf("Please enter the deposit description: ");
                     String DepositDescription = scanner.nextLine();
 
-                    System.out.println("Please enter the deposit vendor: ");
+                    System.out.printf("Please enter the deposit vendor: ");
                     String DepositVendor = scanner.nextLine();
 
                     Ledger.addDeposit(DepositDescription, DepositVendor, Depositamount);
@@ -47,7 +47,7 @@ public class Menu {
                     System.out.print("Please enter the Payment description: ");
                     String PayDescription = scanner.nextLine();
 
-                    System.out.println("Please enter the Payment vendor: ");
+                    System.out.printf("Please enter the Payment vendor: ");
                     String PayVendor = scanner.nextLine();
 
                     Ledger.makePayment(PayDescription, PayVendor, PayAmount);
@@ -62,7 +62,7 @@ public class Menu {
                         System.out.println("P) Payments out of Account");
                         System.out.println("R) Reports Screen");
                         System.out.println("H) Go back to Home Page");
-                        System.out.println("Please choose one of the options above: ");
+                        System.out.printf("Please choose one of the options above: ");
                         String LedgerInput = scanner.nextLine();
                         String LedgerUpperCase = LedgerInput.toUpperCase();
                         char LedgerChoice = LedgerUpperCase.charAt(0);
@@ -91,7 +91,7 @@ public class Menu {
                                 System.out.println("4) Previous Year");
                                 System.out.println("5) Search by Vendor");
                                 System.out.println("0) Go back to ledger page");
-                                System.out.println("Please choose on the options above: ");
+                                System.out.printf("Please choose on the options above: ");
 
                                 int ReportsChoice = scanner.nextInt();
                                 scanner.nextLine();
@@ -114,7 +114,7 @@ public class Menu {
                                         Ledger.LastYear();
                                         break;
                                     case 5:
-                                        System.out.println("Please enter vendor name: ");
+                                        System.out.printf("Please enter vendor name: ");
                                         String vendor = scanner.nextLine();
 
                                         Ledger.SearchByVendor(vendor);

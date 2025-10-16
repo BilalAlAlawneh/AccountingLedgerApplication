@@ -67,8 +67,7 @@ public class Ledger {
         String formattedTime = time.format(formatter);
 
         if (amount >= 0) {
-            System.out.println("Payment amount must be negative.");
-            return;
+            amount*=-1;
         }
 
         Transactions newPayment = new Transactions(amount, date, formattedTime, description, vendor);
