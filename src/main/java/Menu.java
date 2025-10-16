@@ -141,7 +141,7 @@ public class Menu {
                             running = false;
                             break;
                         default:
-                            System.out.println("Invalid choice, try again");
+                            System.out.println("Invalid choice, try again please");
             }
         }
     }
