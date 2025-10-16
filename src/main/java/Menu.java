@@ -115,6 +115,9 @@ public class Menu {
                                         break;
                                     case 5:
                                         System.out.println("Please enter vendor name: ");
+                                        String vendor = scanner.nextLine();
+
+                                        Ledger.SearchByVendor(vendor);
                                         break;
                                     case 0:
                                         System.out.println("Back to ledger page");

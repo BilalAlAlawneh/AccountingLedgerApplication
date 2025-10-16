@@ -139,6 +139,7 @@ public class Ledger {
             }
         }
     }
+
     public void LastYear() {
         LocalDate LastYear = LocalDate.now().minusYears(1);
         LocalDate FirstofLastYear = LastYear.withDayOfYear(1);
@@ -151,6 +152,16 @@ public class Ledger {
             }
         }
     }
+
+    public void SearchByVendor(String VendorChoice){
+        transactionslist.stream()
+                .filter(t -> t.getVendor().equalsIgnoreCase(VendorChoice))
+                .forEach(System.out::println);
+    }
+
+   /* public void CustomSearch(){
+
+    }*/
 
 }
 
