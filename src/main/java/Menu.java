@@ -136,8 +136,9 @@ public class Menu {
                                         System.out.println("Please enter the vendor of transaction or press Enter to skip: ");
                                         String vendorChoice = scanner.nextLine();
                                         System.out.printf("Please enter the amount of transaction or press Enter to skip: ");
-                                        double amountChoice = scanner.nextDouble();
+                                        String amountChoice = scanner.nextLine();
 
+                                        Ledger.CustomSearch(StartDateChoice, EndDateChoice, descriptionChoice, vendorChoice, amountChoice);
                                         break;
                                     case 0:
                                         System.out.println("Back to ledger page");

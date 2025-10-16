@@ -7,6 +7,7 @@ import java.util.List;
 import java.io.*;
 import java.time.*;
 import java.util.stream.Stream;
+import static java.util.Locale.filter;
 
 public class Ledger {
 
@@ -22,10 +23,7 @@ public class Ledger {
                     .map(parts -> new Transactions(
                             Double.parseDouble(parts[4].trim()),
                             LocalDate.parse(parts[0].trim()),
-                            parts[1].trim(),
-                            parts[2].trim(),
-                            parts[3].trim()
-                    ))
+                            parts[1].trim(), parts[2].trim(), parts[3].trim()))
                     .forEach(transactionslist::add);
 
             System.out.println("Loaded " + transactionslist.size() + " transactions from file.");
@@ -67,7 +65,7 @@ public class Ledger {
         String formattedTime = time.format(formatter);
 
         if (amount >= 0) {
-            amount*=-1;
+            amount *= -1;
         }
 
         Transactions newPayment = new Transactions(amount, date, formattedTime, description, vendor);
@@ -127,13 +125,13 @@ public class Ledger {
         }
     }
 
-    public void YearToDate(){
+    public void YearToDate() {
         LocalDate today = LocalDate.now();
         LocalDate FirstofYear = today.withDayOfYear(1);
 
-        for(Transactions t: transactionslist){
+        for (Transactions t : transactionslist) {
             LocalDate getDate = t.getDate();
-            if((getDate.isEqual(FirstofYear) || getDate.isAfter(FirstofYear) && getDate.isBefore(today.plusDays(1)))){
+            if ((getDate.isEqual(FirstofYear) || getDate.isAfter(FirstofYear) && getDate.isBefore(today.plusDays(1)))) {
                 System.out.println(t);
             }
         }
@@ -152,15 +150,56 @@ public class Ledger {
         }
     }
 
-    public void SearchByVendor(String VendorChoice){
+    public void SearchByVendor(String VendorChoice) {
         transactionslist.stream()
                 .filter(t -> t.getVendor().equalsIgnoreCase(VendorChoice))
                 .forEach(System.out::println);
     }
 
-   /* public void CustomSearch(){
+    public void CustomSearch(String StartDate, String EndDate, String Description, String Vendor, String Amount) {
+        LocalDate start = null;
+        LocalDate end = null;
+        String desc = null;
+        String ven = null;
+        String amnt = null;
 
-    }*/
 
+        if (!StartDate.trim().isEmpty()) {
+            start = LocalDate.parse(StartDate.trim());
+        }
+
+        if (!EndDate.trim().isEmpty()) {
+            end = LocalDate.parse(EndDate.trim());
+
+        }
+
+        if (!Description.trim().isEmpty()) {
+            desc = Description.trim();
+        }
+
+        if (!Vendor.trim().isEmpty()) {
+            ven = Vendor.trim();
+        }
+
+        if (!Amount.trim().isEmpty()) {
+            amnt = Amount.trim();
+        }
+
+        final LocalDate fstart = start;
+        final LocalDate fend = end;
+        final String fdesc = desc;
+        final String fven = ven;
+        final String famnt = amnt;
+
+
+        transactionslist.stream()
+                .filter(t -> fstart == null || !t.getDate().isBefore(fstart))
+                .filter(t -> fend == null || !t.getDate().isAfter(fend))
+                .filter(t -> fdesc == null || t.getDescription().equalsIgnoreCase(fdesc))
+                .filter(t -> fven == null || t.getVendor().equalsIgnoreCase(fven))
+                .filter(t -> famnt == null || String.valueOf(t.getAmount()).equals(famnt))
+                .forEach(System.out::println);
+
+    }
 }
 
