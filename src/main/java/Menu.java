@@ -133,7 +133,7 @@ public class Menu {
                                         String EndDateChoice = scanner.nextLine();
                                         System.out.printf("Please enter the description of transaction or press Enter to skip: ");
                                         String descriptionChoice = scanner.nextLine();
-                                        System.out.println("Please enter the vendor of transaction or press Enter to skip: ");
+                                        System.out.printf("Please enter the vendor of transaction or press Enter to skip: ");
                                         String vendorChoice = scanner.nextLine();
                                         System.out.printf("Please enter the amount of transaction or press Enter to skip: ");
                                         String amountChoice = scanner.nextLine();

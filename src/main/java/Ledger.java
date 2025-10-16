@@ -157,49 +157,51 @@ public class Ledger {
     }
 
     public void CustomSearch(String StartDate, String EndDate, String Description, String Vendor, String Amount) {
-        LocalDate start = null;
-        LocalDate end = null;
-        String desc = null;
-        String ven = null;
-        String amnt = null;
+        LocalDate start;
+        LocalDate end;
+        String desc;
+        String ven;
+        String amnt;
 
 
         if (!StartDate.trim().isEmpty()) {
             start = LocalDate.parse(StartDate.trim());
+        } else {
+            start = null;
         }
 
         if (!EndDate.trim().isEmpty()) {
             end = LocalDate.parse(EndDate.trim());
 
+        } else {
+            end = null;
         }
 
         if (!Description.trim().isEmpty()) {
             desc = Description.trim();
+        } else {
+            desc = null;
         }
 
         if (!Vendor.trim().isEmpty()) {
             ven = Vendor.trim();
+        } else {
+            ven = null;
         }
 
         if (!Amount.trim().isEmpty()) {
             amnt = Amount.trim();
+        } else {
+            amnt = null;
         }
 
-        final LocalDate fstart = start;
-        final LocalDate fend = end;
-        final String fdesc = desc;
-        final String fven = ven;
-        final String famnt = amnt;
-
-
         transactionslist.stream()
-                .filter(t -> fstart == null || !t.getDate().isBefore(fstart))
-                .filter(t -> fend == null || !t.getDate().isAfter(fend))
-                .filter(t -> fdesc == null || t.getDescription().equalsIgnoreCase(fdesc))
-                .filter(t -> fven == null || t.getVendor().equalsIgnoreCase(fven))
-                .filter(t -> famnt == null || String.valueOf(t.getAmount()).equals(famnt))
+                .filter(t -> start == null || !t.getDate().isBefore(start))
+                .filter(t -> end == null || !t.getDate().isAfter(end))
+                .filter(t -> desc == null || t.getDescription().equalsIgnoreCase(desc))
+                .filter(t -> ven == null || t.getVendor().equalsIgnoreCase(ven))
+                .filter(t -> amnt == null || String.valueOf(t.getAmount()).equals(amnt))
                 .forEach(System.out::println);
-
     }
 }
 
