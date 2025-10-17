@@ -77,6 +77,8 @@ public class Menu {
                         System.out.print("⚽ ");
                         Thread.sleep(500); // 1 second per ball
                     }
+                    System.out.println("\nReady!");
+
                     boolean LedgerRunning = true;
                     while (LedgerRunning) {
                         System.out.println("⚽️Soccer⚽ Store Ledger: ");
@@ -121,7 +123,7 @@ public class Menu {
                                 System.out.println("5) Search by Vendor/Buyer");
                                 System.out.println("6) Custom Search");
                                 System.out.println("0) Go back to ledger page");
-                                System.out.printf("Please choose on the options above: ");
+                                System.out.printf("Please choose one the options above: ");
 
                                 int ReportsChoice = scanner.nextInt();
                                 scanner.nextLine();
