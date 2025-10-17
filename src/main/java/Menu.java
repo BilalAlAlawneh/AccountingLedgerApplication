@@ -2,9 +2,11 @@
 
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.lang.Thread;
+
 
 public class Menu {
-    public static void showMenu() {
+    public static void showMenu()throws InterruptedException {
 
 
         Scanner scanner = new Scanner(System.in);
@@ -14,33 +16,48 @@ public class Menu {
 
 
         while (running) {
-            System.out.println("Welcome to the Accounting Ledger Application");
-            System.out.println("D) Add Deposit");
-            System.out.println("P) Make Payment (Debit)");
-            System.out.println("L) Ledger");
-            System.out.println("X) Exit");
-            System.out.printf("Please choose one of the options: ");
+            System.out.println("⚽   Welcome to the ⚽Soccer⚽ Store Ledger System");
+            System.out.println("⚽   S) Record Sales Only");
+            System.out.println("⚽   E) Record an Expense / Inventory Purchase");
+            System.out.println("⚽   L) Ledger");
+            System.out.println("⚽   X) Exit");
+            System.out.printf("⚽    Please choose one of the options: ");
             String inputLine = scanner.nextLine();
             String UpperCase = inputLine.toUpperCase();
             char choice = UpperCase.charAt(0);//grabbing the first char only
 
 
             switch (choice) {
-                case 'D':
-                    System.out.printf("Please enter your Deposit amount: ");
+                case 'S':
+                    System.out.print("Loading ");
+                    for (int i = 0; i < 5; i++) {
+                        System.out.print("⚽ ");
+                        Thread.sleep(500); // 1 second per ball
+                    }
+                    System.out.println("\nReady!");
+
+                    System.out.print("Please enter the Sales Amount: ");
                     double Depositamount = scanner.nextDouble();
                     scanner.nextLine();
 
-                    System.out.printf("Please enter the deposit description: ");
+                    System.out.printf("Please enter the Sales Description: ");
                     String DepositDescription = scanner.nextLine();
 
-                    System.out.printf("Please enter the deposit vendor: ");
+                    System.out.printf("Please enter the Buyer Name: ");
                     String DepositVendor = scanner.nextLine();
 
                     Ledger.addDeposit(DepositDescription, DepositVendor, Depositamount);
                     break;
 
-                case 'P':
+                case 'E':
+                    System.out.print("Loading ");
+                    for (int i = 0; i < 5; i++) {
+                        System.out.print("⚽ ");
+                        Thread.sleep(500); // 1 second per ball
+                    }
+                    System.out.println("\nReady!");
+
+
                     System.out.print("Please enter your Payment amount: ");
                     double PayAmount = scanner.nextDouble();
                     scanner.nextLine();
@@ -55,12 +72,17 @@ public class Menu {
                     break;
 
                 case 'L':
+                    System.out.print("Loading ");
+                    for (int i = 0; i < 5; i++) {
+                        System.out.print("⚽ ");
+                        Thread.sleep(500); // 1 second per ball
+                    }
                     boolean LedgerRunning = true;
                     while (LedgerRunning) {
-                        System.out.println("Ledger: ");
-                        System.out.println("A) All transaction history");
-                        System.out.println("D) Deposits into Account");
-                        System.out.println("P) Payments out of Account");
+                        System.out.println("⚽️Soccer⚽ Store Ledger: ");
+                        System.out.println("A) All transactions history");
+                        System.out.println("D) All Payments to Store");
+                        System.out.println("P) All Expenses / Inventory purchases");
                         System.out.println("R) Reports Screen");
                         System.out.println("H) Go back to Home Page");
                         System.out.printf("Please choose one of the options above: ");
@@ -82,15 +104,21 @@ public class Menu {
                                 break;
 
                             case 'R':
+                                System.out.print("Loading ");
+                                for (int i = 0; i < 5; i++) {
+                                    System.out.print("⚽ ");
+                                    Thread.sleep(500); // 1 second per ball
+                                }
+                                System.out.println("\nReady!");
                                 boolean ReportsChoiceRunning = true;
                                 while(ReportsChoiceRunning){
 
                                 System.out.println("Reports Screen");
-                                System.out.println("1) Month to Date: ");
-                                System.out.println("2) Previous Month");
-                                System.out.println("3) Year to Date");
-                                System.out.println("4) Previous Year");
-                                System.out.println("5) Search by Vendor");
+                                System.out.println("1) Month to Date Transactions");
+                                System.out.println("2) Previous Month Transactions");
+                                System.out.println("3) Year to Date Transactions");
+                                System.out.println("4) Previous Year Transactions");
+                                System.out.println("5) Search by Vendor/Buyer");
                                 System.out.println("6) Custom Search");
                                 System.out.println("0) Go back to ledger page");
                                 System.out.printf("Please choose on the options above: ");
@@ -122,7 +150,13 @@ public class Menu {
                                         Ledger.SearchByVendor(vendor);
                                         break;
                                     case 6:
-                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-DD");
+                                        System.out.print("Loading ");
+                                        for (int i = 0; i < 5; i++) {
+                                            System.out.print("⚽ ");
+                                            Thread.sleep(500); // 1 second per ball
+                                        }
+                                        System.out.println("\nReady!");
+
                                         System.out.println("Custom Search");
 
                                         System.out.printf("Please enter the start Date(YYYY-MM-DD) or press Enter to skip: ");
